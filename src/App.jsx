@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router";
 import Wrapper from "../layout/Wrapper";
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import MovieDetails from "./pages/MovieDetails";
 
 const App = () => {
