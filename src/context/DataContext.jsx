@@ -6,8 +6,14 @@ const DataContext = createContext({});
 
 export const DataProvider = ({ children }) => {
   const [movies, setMovies] = useState([]);
-  const [search, dispatch] = useReducer(searchReducer, { search: "", category: "" });
-  const [page, pageDispatch] = useReducer(pageNavReducer, { currentPage: 1, totalPage: 1 });
+  const [search, dispatch] = useReducer(searchReducer, {
+    search: "",
+    category: "",
+  });
+  const [page, pageDispatch] = useReducer(pageNavReducer, {
+    currentPage: 1,
+    totalPage: 1,
+  });
   const [details, setDetails] = useState({});
 
   return (
@@ -28,8 +34,6 @@ export const DataProvider = ({ children }) => {
   );
 };
 
-const useDataContext = () => {
-  return useContext(DataContext);
-};
+const useDataContext = () => useContext(DataContext);
 
 export default useDataContext;
