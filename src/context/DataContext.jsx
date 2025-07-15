@@ -26,7 +26,7 @@ export const DataProvider = ({ children }) => {
         details,
         setDetails,
         page,
-        pageDispatch,
+        pageDispatch
       }}
     >
       {children}
