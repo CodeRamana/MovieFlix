@@ -1,13 +1,38 @@
-import NavBar from "./components/NavBar";
-import SearchBar from "./components/SearchBar";
+import { createBrowserRouter } from "react-router";
+import { RouterProvider } from "react-router";
+import Wrapper from "../layout/Wrapper";
 import Home from "./pages/home";
+import MovieDetails from "./pages/MovieDetails";
 
 const App = () => {
+
+    const router = createBrowserRouter( [{
+    path: "/",
+    element: <Wrapper/>,
+    children: [
+            {
+                path: "/",
+                element: <Home/>
+            },
+            {
+                path: "/:imdbID",
+                element: <MovieDetails/>
+            },
+        ]
+  }], {
+    future: {
+      v7_relativeSplatPath: true,
+      v7_fetcherPersist: true,
+      v7_normalizeFormMethod: true,
+      v7_partialHydration: true,
+      v7_skipActionErrorRevalidation: true,
+    },
+  })
+
   return (
-    <header className="bg-[#131416] font-[poppins]">
-      <NavBar />
-      <Home/>
-    </header>
+    <RouterProvider router={router} future={{
+      v7_startTransition: true,
+    }} />
   );
 }
 

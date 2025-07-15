@@ -1,13 +1,13 @@
-const searchReducer = (action,state) => {
+const searchReducer = (state,action) => {
     switch(action.type){
         case "ADDSEARCH" : {
             return {
-                ...state , search:action.type.payload
+                ...state,search:action['payload']
             }
         }
         case "ADDCATEGORY" : {
             return {
-                ...state , category:action.type.payload
+                ...state , category:action.payload
             }
         }
         default: 

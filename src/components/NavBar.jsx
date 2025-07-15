@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router";
+
 const NavBar = () => {
+    const navigate = useNavigate()
     return (
         <div className="border-b border-b-white">
             <nav className="text-white max-w-[1200px] mx-auto p-5 flex w-[90%]">
-                <div className="flex justify-center items-center gap-3">
+                <div className="flex justify-center items-center gap-3" onClick={()=>navigate('/')} >
                     <div className="size-4">
                         <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
