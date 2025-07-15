@@ -26,7 +26,6 @@ const MovieDetails = () => {
 
     useEffect(() => { fetchMovieDetails(imdbID, apiKey) }, [imdbID, apiKey])
 
-    console.log()
     return (
         Object.keys(details).length > 0 && (<div className='max-w-[1200px] w-[95%] mx-auto my-10 bg-white p-5 rounded-xl flex flex-col sm:flex-row sm:gap-5 md:gap-10 md:items-center'>
             <img src={details.Poster} className='max-w-[300px] self-center sm:self-start' alt={details.Title} />

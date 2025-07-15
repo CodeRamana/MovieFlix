@@ -1,5 +1,5 @@
 const pageNavReducer = (state,action) => {
-    console.log(state)
+
     switch(action.type){
         case "SET_TOTAL_PAGES" : {
             return {...state ,totalPage:action.payload }
