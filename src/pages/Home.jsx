@@ -22,7 +22,7 @@ const Home = () => {
                 }
             })
 
-            const total = parseInt(movies.data.totalResults || 1);
+            const total = Math.ceil( parseInt(movies.data.totalResults || 1)/10);
             console.log(page['currentPage'])
             if(page['currentPage'] === 1 || total !== page['totalPage'] ) pageDispatch({type:"SET_TOTAL_PAGES",payload:total});
 
