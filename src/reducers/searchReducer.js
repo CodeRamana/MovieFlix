@@ -10,6 +10,11 @@ const searchReducer = (state,action) => {
                 ...state , category:action.payload
             }
         }
+        case "ADDYEAR" : {
+            return {
+                ...state ,year:action.payload
+            }
+        }
         default: 
             return state;
     }

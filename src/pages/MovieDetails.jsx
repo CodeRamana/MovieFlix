@@ -1,30 +1,48 @@
 import { useParams } from 'react-router'
 import api from '../instances/instance'
-import { useEffect } from 'react';
+import _api from '../instances/publicInstance'
+import { useEffect, useState } from 'react';
 import useDataContext from '../context/DataContext';
 import { RxAvatar } from "react-icons/rx";
+import StarRating from '../components/StarRating';
+
+
 const MovieDetails = () => {
     const { imdbID } = useParams()
     const apiKey = import.meta.env.VITE_API_KEY;
     const { details, setDetails } = useDataContext();
     const fetchMovieDetails = async (id, key) => {
         try {
-            const movie = await api.get("", {
+            const movie = await _api.get(`/movies/${id}`);
+            setDetails(movie.data)
+        }
+        catch (err) {
+            console.log(err?.message || err?.response?.message)
+             const omdbData = await api.get("", {
                 params: {
                     i: id,
                     plot: "full",
                     apiKey: key
                 }
             })
+            omdbData.data.userRating = '';
 
+            const newMovie = {
+                ...omdbData.data,
+                id: omdbData.data.imdbID,
+                userRating: ''
+            };
+            
+            await _api.post('/movies',JSON.stringify(newMovie))
+
+             const movie = await _api.get(`/movies/${id}`);
             setDetails(movie.data)
         }
-        catch (err) {
-            console.log(err?.message || err?.response?.message)
-        }
+       
     }
 
-    useEffect(() => { fetchMovieDetails(imdbID, apiKey) }, [imdbID, apiKey])
+
+    useEffect(() => { fetchMovieDetails(imdbID, apiKey) }, [])
 
     return (
         Object.keys(details).length > 0 && (<div className='max-w-[1200px] w-[95%] mx-auto my-10 bg-white p-5 rounded-xl flex flex-col sm:flex-row sm:gap-5 md:gap-10 md:items-center'>
@@ -39,10 +57,15 @@ const MovieDetails = () => {
                 </div>
                 <p className='p'>{details.Plot}</p>
                 <div className='space-y-1 mt-2'>
+                   {details?.userRating === 0 ? <StarRating id={details.id}/> : <StarRating initial={details.userRating} id={details.id}/>} 
+                </div>
+                <div className='space-y-1 mt-2'>
                     <p className='hidden font-extrabold text-2xl font-serif italic'>Ratings</p>
                     <p className='font-extrabold text-4xl italic'>{details.imdbRating}</p>
                     <p className='text-md font-bold'>{details.imdbVotes} Votes</p>
                 </div>
+                
+                
                 <div className="flex flex-col gap-2 mt-3 md:flex-row">
                     {details['Actors']?.split(",").map((actor, index) => (
                         <div
@@ -57,7 +80,7 @@ const MovieDetails = () => {
             </div>
         </div>
         )
-            
+
     )
 }
 

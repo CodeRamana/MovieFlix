@@ -6,24 +6,24 @@ import useDataContext from "../context/DataContext";
 import api from '../instances/instance'
 import MovieCard from "../components/MovieCard";
 import Pagination from "../components/Pagination";
+import Tabs from "../components/Tabs";
 
 const Home = () => {
     const { movies, search, setMovies,page,pageDispatch} = useDataContext();
     const apiKey = import.meta.env.VITE_API_KEY;
-    const fetchMovies = async (txt, type, page) => {
+    const fetchMovies = async (txt, type, page,year) => {
         try {
-            console.log(page)
             const movies = await api.get("", {
                 params: {
                     apikey: apiKey,
                     s: txt,
+                    y:year || undefined,
                     type: type || undefined,
                     page:page['currentPage']
                 }
             })
 
             const total = Math.ceil( parseInt(movies.data.totalResults || 1)/10);
-            console.log(page['currentPage'])
             if(page['currentPage'] === 1 || total !== page['totalPage'] ) pageDispatch({type:"SET_TOTAL_PAGES",payload:total});
 
 
@@ -35,13 +35,19 @@ const Home = () => {
     }
 
     useEffect(() => {
-        fetchMovies(search['search'], search['category'],page)
+        fetchMovies(search['search'], search['category'],page,search['year'])
     }, [search,page['currentPage']])
 
     return (
         <main>
             <img src={cinema} className="mx-auto object-cover max-w-[1200px] w-[100%] h-[150px] sm:w-[90%] sm:my-5 sm:rounded-md" alt="Cinema" />
             <SearchBar />
+            {!(search['category'] === "" && search['year'] === "" ) &&
+                    <div className='max-w-[1200px] mx-auto flex gap-3 justify-start'>
+                        {Object.keys(search).filter((item) => item !== "search" && search[item] !== "").map((result, index) => (
+                            <Tabs key={index} title={result} result={search[result]} />))}
+                    </div>
+                }
 
             {
                 movies.length === 0 && (

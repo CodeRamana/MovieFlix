@@ -6,7 +6,6 @@ const Wrapper = () => {
    <header className="font-[poppins]">
      <NavBar />
     <Outlet/>
-      
    </header>
   )
 }
