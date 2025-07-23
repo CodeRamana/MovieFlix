@@ -18,7 +18,7 @@ function StarRating({ id, initial = 0, onRate = () => {} }) {
 
   async function updateUserRating(rating) {
     try {
-      await _api.patch(`/movies/${id}`, { userRating: rating });
+      await _api.put(`/Movies/${id}`, { userRating: rating });
     } catch (error) {
       console.error('Failed to update rating:', error);
     }

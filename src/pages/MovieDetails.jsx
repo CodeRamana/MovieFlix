@@ -11,10 +11,15 @@ const MovieDetails = () => {
     const { imdbID } = useParams()
     const apiKey = import.meta.env.VITE_API_KEY;
     const { details, setDetails } = useDataContext();
+    let arr = [];
+
     const fetchMovieDetails = async (id, key) => {
         try {
-            const movie = await _api.get(`/movies/${id}`);
-            setDetails(movie.data)
+
+            const localData = JSON.parse(localStorage.getItem("movies")) 
+            const oldId = localData.find((value)=>value.imdbID === id).id;
+             const movie = await _api.get(`/Movies/${oldId}`);
+             setDetails(movie.data)
         }
         catch (err) {
             console.log(err?.message || err?.response?.message)
@@ -25,24 +30,28 @@ const MovieDetails = () => {
                     apiKey: key
                 }
             })
-            omdbData.data.userRating = '';
+            omdbData.data.userRating = 0;
 
             const newMovie = {
                 ...omdbData.data,
-                id: omdbData.data.imdbID,
                 userRating: ''
             };
-            
-            await _api.post('/movies',JSON.stringify(newMovie))
 
-             const movie = await _api.get(`/movies/${id}`);
+            
+           const result = await _api.post('/Movies',newMovie);
+           const newId = result['data'].id
+
+           arr = [...arr,{id:newId,imdbID:omdbData.data.imdbID}]
+
+           localStorage.setItem("movies",JSON.stringify(arr))
+             const movie = await _api.get(`/Movies/${newId}`);
             setDetails(movie.data)
         }
        
     }
 
 
-    useEffect(() => { fetchMovieDetails(imdbID, apiKey) }, [])
+    useEffect(() => { fetchMovieDetails(imdbID, apiKey) }, [imdbID, apiKey])
 
     return (
         Object.keys(details).length > 0 && (<div className='max-w-[1200px] w-[95%] mx-auto my-10 bg-white p-5 rounded-xl flex flex-col sm:flex-row sm:gap-5 md:gap-10 md:items-center'>
