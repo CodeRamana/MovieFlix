@@ -1,31 +1,41 @@
-# 🎬 Movie Search App - MovieFlix
+# 🎬 Movie Review Application - MovieFlex
 
-A full-featured, modern movie search application built with **React.js**, powered by the **OMDB API**. This app allows users to search for movies, view detailed information, and explore content with clean UI/UX and pagination.
-
-## 🚀 Features
-
-- 🔎 Search for movies, series, or episodes using OMDB API
-- 🎞 View search results as poster cards with brief info
-- 📄 Detailed movie page with plot, cast, genre, and ratings
-- 📂 Filter by type (Movie, Series, Episode) using API query (no `.filter()`)
-- 📃 Pagination support for large sets of search results
-- 🧭 Seamless navigation between pages using React Router
-- 🚫 Graceful error handling and user-friendly messages
-- ❤️ Add movies to your favorites list (bonus feature-ready)
-- 🎨 Styled using Tailwind CSS for responsiveness and modern layout
+A responsive and interactive movie review app built with **React JS** and **TailwindCSS**. Users can search and filter movies, view detailed information, and rate movies using a star-based system. The project demonstrates React state handling using hooks and data display from a public movie API (like OMDB) or mock JSON.
 
 ---
 
-## 🛠 Tech Stack
+## ✨ Features
 
-| Technology    | Description                                 |
-|---------------|---------------------------------------------|
-| React.js      | Frontend library for building UI components |
-| React Router  | Routing between pages                        |
-| JavaScript    | Logic and functionality                     |
-| Tailwind CSS  | Utility-first CSS framework                 |
-| OMDB API      | External movie database API                 |
-| HTML/CSS      | Base structure and styling support          |
+- **Movie Listings**
+  - Browse a list of movies from mock data or a public API.
+  - Key details: title, poster, release year, and genre.
+  - Responsive grid layout.
+
+- **Search & Filter**
+  - Live search bar filters movies by title.
+  - Filter movies by:
+    - Genre
+    - Release year
+    - Average rating
+
+- **Movie Details**
+  - Click a movie to view details: description, (optional) cast, release info, etc.
+  - Modern, readable detail layout.
+
+- **Ratings**
+  - Users can rate films (1–5 stars).
+  - Visual display of average user rating per movie.
+  - UI reflects your current rating instantly.
+
+---
+
+## 🛠️ Tech Stack
+
+- [React JS](https://react.dev/) (frontend)
+- [TailwindCSS](https://tailwindcss.com/) (styling)
+- React Hooks (`useState`, `useEffect`)
+- [OMDB API](https://www.omdbapi.com/) and mock JSON data
+
 
 ---
 
